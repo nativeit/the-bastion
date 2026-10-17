@@ -1,0 +1,30 @@
+{
+  "_comment": "Paste this into CapRover > App > Deployment > Service Update Override. It does what the normal UI cannot: publish SSH in HOST mode (preserves client source IP, binds only on the node running the task), pin the single stateful replica to one node, and grant the caps The Bastion's ZeroTier egress needs. Replace NODE_ID_HERE with the target node id from `docker node ls`.",
+
+  "TaskTemplate": {
+    "Placement": {
+      "Constraints": ["node.id == NODE_ID_HERE"]
+    },
+    "ContainerSpec": {
+      "CapabilityAdd": ["CAP_NET_ADMIN", "CAP_SYS_ADMIN"],
+      "Mounts": [
+        { "Type": "bind", "Source": "/dev/net/tun", "Target": "/dev/net/tun" }
+      ]
+    }
+  },
+
+  "EndpointSpec": {
+    "Ports": [
+      {
+        "Protocol": "tcp",
+        "PublishMode": "host",
+        "PublishedPort": 2222,
+        "TargetPort": 22
+      }
+    ]
+  },
+
+  "Mode": {
+    "Replicated": { "Replicas": 1 }
+  }
+}
