@@ -23,7 +23,7 @@ infrastructure.
 
 1. **Check out a release tag** (the image bakes in the uploaded tree):
    ```bash
-   git -C /home/agents/agents/projects/the-bastion checkout v3.24.01
+   git -C /home/agents/agents/projects/the-bastion checkout v3.24.01-caprover.1
    ```
 2. In CapRover, create an app, e.g. `bastion`. **Enable "Has Persistent Data".**
 3. Set the app's **Captain Definition Path** to `./deploy/caprover/captain-definition`.
